@@ -1,5 +1,7 @@
 class Solution {
     
+    //to fill dp fill from end so the for loop will go like fot(int i=399;i>=0;i--)
+    
     public boolean weneedtotravel(int cday,int[] days)
     {
         for(int i=0;i<days.length;i++)
