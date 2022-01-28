@@ -14,6 +14,9 @@
  * }
  */
 class Solution {
+//     Time complexity : O(n)O(n). A total of nn nodes of the given tree will be considered in the worst case.
+
+// Space complexity : O(x)O(x). The size of the queuequeue or temptemp queue can grow upto xx only. Here, xx refers to the number of maximum number of nodes at any level in the given tree.
     public TreeNode addOneRow(TreeNode root, int val, int depth) {
         
         if(depth==1)
