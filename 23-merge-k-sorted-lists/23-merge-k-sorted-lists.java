@@ -42,21 +42,29 @@ class Solution {
         return dummy.next;
         
     }
+    
+    public ListNode merge(ListNode[] lists,int si,int ei)
+    {
+        if(si==ei)
+        {
+            return lists[si];
+        }
+        
+        int mid=(si+ei)/2;
+        
+        ListNode lists1=merge(lists,si,mid);
+        ListNode lists2=merge(lists,mid+1,ei);
+        
+        return mergeTwoLists(lists1,lists2);
+    }
 
     
     public ListNode mergeKLists(ListNode[] lists) {
-        if(lists.length==0)
-        {
-            return null;
-        }
         
-      ListNode ref=null;
-        for(int i=0;i<lists.length;i++)
-        {
-            ref=mergeTwoLists(ref,lists[i]);
-        }
+        if(lists.length==0) return null;
         
-        return ref;
+        return merge(lists,0,lists.length-1);
+       
         
     }
 }
