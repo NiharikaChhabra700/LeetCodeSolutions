@@ -31,6 +31,11 @@ class Solution {
     
     public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
         
+        if(l1==null || l2==null)
+        {
+            return l1!=null ? l1 : l2;
+        }
+        
         ListNode c1=reverse(l1);
         ListNode c2=reverse(l2);
         
