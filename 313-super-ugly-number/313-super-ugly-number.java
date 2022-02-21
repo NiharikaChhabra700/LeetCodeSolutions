@@ -1,30 +1,46 @@
 class Solution {
+    
+    public class Pair implements Comparable<Pair>
+    {
+        int prime;
+        int pointer;
+        int value;
+        
+        public Pair(int prime,int pointer,int value)
+        {
+            this.prime=prime;
+            this.pointer=pointer;
+            this.value=value;
+        }
+        
+        public int compareTo(Pair o)
+        {
+            return this.value-o.value;
+        }
+    }
+    
+    
     public int nthSuperUglyNumber(int n, int[] primes) {
         
-        //O(N*k) where k is prime ka length
-        int[] pointers=new int[primes.length];
-        Arrays.fill(pointers,1);
-        
         int[] dp=new int[n+1];
+        PriorityQueue<Pair> pq=new PriorityQueue<>();
+        
+        for(int i=0;i<primes.length;i++)
+        {
+            pq.add(new Pair(primes[i],1,primes[i]));  
+        }
+        
         dp[1]=1;
         
-        
-        for(int i=2;i<=n;i++)
+        for(int i=2;i<=n;)
         {
-            int min=Integer.MAX_VALUE;
-            for(int j=0;j<primes.length;j++)
+            Pair rp=pq.remove();
+            if(dp[i-1]!=rp.value)
             {
-                min = Math.min (min , primes[j] * dp[pointers[j]]);
+                dp[i]=rp.value;
+                i++;
             }
-            dp[i]=min;
-            
-            for(int j=0;j<primes.length;j++)
-            {
-                if(min == primes[j]*dp[pointers[j]] )
-                {
-                    pointers[j]++;
-                }
-            }
+            pq.add(new Pair(rp.prime,rp.pointer+1,rp.prime * dp[rp.pointer+1]));
         }
         
         return dp[n];
