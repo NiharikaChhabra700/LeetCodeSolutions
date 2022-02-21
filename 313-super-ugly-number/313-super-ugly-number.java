@@ -1,7 +1,7 @@
 class Solution {
     public int nthSuperUglyNumber(int n, int[] primes) {
         
-       
+        //O(N*k) where k is prime ka length
         int[] pointers=new int[primes.length];
         Arrays.fill(pointers,1);
         
