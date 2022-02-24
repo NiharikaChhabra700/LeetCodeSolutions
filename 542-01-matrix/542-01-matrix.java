@@ -1,51 +1,50 @@
 class Solution {
     
-    public class Pair
-    {
-        int x;
-        int y;
-        Pair(int x,int y)
-        {
-            this.x=x;
-            this.y=y;
-        }
-    }
-    
+ 
     
     public int[][] updateMatrix(int[][] mat) {
-        LinkedList<Pair> que=new LinkedList<>();
+       LinkedList<Integer> que=new LinkedList<>();
+       int n=mat.length;
+       int m=mat[0].length;
         
-        for(int i=0;i<mat.length;i++)
+        boolean[][] vis=new boolean[n][m];
+        
+        for(int i=0;i<n;i++)
         {
-            for(int j=0;j<mat[0].length;j++)
+            for(int j=0;j<m;j++)
             {
                 if(mat[i][j]==0)
                 {
-                    que.addLast(new Pair(i,j));
-                }
-                else
-                {
-                    mat[i][j]=-1;
+                    que.addLast(i*m+j);
+                    vis[i][j]=true;
                 }
             }
         }
         
-         int[][] dir={{1,0},{-1,0},{0,1},{0,-1}};
+        int[][] dir={{1,0},{-1,0},{0,1},{0,-1}};
         
         
         while(que.size()!=0)
         {
-            Pair rem=que.removeFirst();
-            
-            for(int d=0;d<dir.length;d++)
+            int size=que.size();
+            while(size-->0)
             {
-                int x=rem.x+dir[d][0];
-                int y=rem.y+dir[d][1];
+                int idx=que.removeFirst();
                 
-                if(x>=0 && y>=0 && x<mat.length && y<mat[0].length && mat[x][y]<0)
+                int r=idx/m;
+                int c=idx%m;
+                
+                for(int[] d: dir)
                 {
-                    que.addLast(new Pair(x,y));
-                    mat[x][y]=mat[rem.x][rem.y]+1;
+                    int x=r+d[0];
+                    int y=c+ d[1];
+                    
+                    if(x>=0 && y>=0 && x<n && y<m && !vis[x][y])
+                    {
+                        mat[x][y]=mat[r][c]+1;
+                        vis[x][y]=true;
+                        que.addLast(x*m+y);
+                    }
                 }
             }
         }
