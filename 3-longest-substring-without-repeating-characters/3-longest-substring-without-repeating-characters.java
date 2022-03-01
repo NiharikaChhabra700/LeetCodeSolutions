@@ -10,7 +10,7 @@ class Solution {
         
         while(ei<n)
         {
-            if(freq[s.charAt(ei++)]++>0)
+            if(freq[s.charAt(ei++)]++ == 1)
             {
                 count++;
             }
