@@ -1,61 +1,67 @@
 class Solution {
-    
-    public class pair{
+    public List<Integer> findClosestElements(int[] arr, int k, int x) {
+        int n=arr.length;
+        ArrayList<Integer> list=new ArrayList<>();
         
-        int val;
-        int gap;
+        int lo=0;
+        int hi=n-1;
+        int mid=0;
         
-        pair(){
+        while(lo<=hi)
+        {
+            mid=(lo+hi)/2;
+            
+            if(arr[mid]==x)
+            {
+                break;
+            }
+            else if(arr[mid]<x)
+            {
+                lo=mid+1;
+            }
+            else
+            {
+                hi=mid-1;
+            }
+        }
+        
+        int l=Math.max(0,mid-1);
+        int r=l+1;
+        
+        while(l>=0 && r<n && k>0)
+        {
+            if(Math.abs(arr[l]-x) <= Math.abs(arr[r]-x))
+            {
+                list.add(arr[l]);
+                l--;
+                k--;
+            }
+            else
+            {
+                list.add(arr[r]);
+                r++;
+                k--;
+            }
+        }
+        
+        while(k>0 && l>=0)
+        {
+            list.add(arr[l]);
+                l--;
+                k--;
             
         }
         
-        pair(int val,int gap)
+        while(k>0 && r<n)
         {
-            this.val=val;
-            this.gap=gap;
+            list.add(arr[r]);
+                r++;
+                k--;
+            
         }
-    }
-    
-    
-    
-    public List<Integer> findClosestElements(int[] arr, int k, int x) {
+        Collections.sort(list);
+        return list;
         
-        PriorityQueue<pair> que=new PriorityQueue<>((a,b)->{
-            if(a.gap != b.gap)
-            {
-                return b.gap-a.gap;
-            }
-            else
-            {
-                return a.val-b.val;
-            }
-        });
-        
-        for(int i=0;i<arr.length;i++)
-        {
-            if(que.size()<k)
-            {
-                que.add(new pair(arr[i],Math.abs(arr[i]-x)));
-            }
-            else
-            {
-                if(que.peek().gap > Math.abs(arr[i]-x))
-                {
-                    que.remove();
-                    que.add(new pair(arr[i],Math.abs(arr[i]-x)));
-                }
-            }
-        }
-        
-        List<Integer> ans=new ArrayList<>();
-        while(que.size()!=0)
-        {
-            pair rm=que.remove();
-            ans.add(rm.val);
-        }
-        
-        Collections.sort(ans);
-        return ans;
         
     }
 }
