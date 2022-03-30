@@ -107,13 +107,12 @@ class Solution
            if(count==M)
            {
                int x=N;
-               while(x>0)
+               while(x-->0)
                {
                    curr.next=curr.next.next;  //delete one node
                    
                    if(curr.next==null) return;
                    
-                   x--;
                }
                
                count=0;
