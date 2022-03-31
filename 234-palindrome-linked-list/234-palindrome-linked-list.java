@@ -30,45 +30,35 @@ class Solution {
         
         return prev;
     }
-    
     public ListNode middle(ListNode head)
     {
-        if(head==null || head.next==null)
-        {
-            return head;
-        }
+        if(head==null || head.next==null) return head;
         
         ListNode slow=head;
         ListNode fast=head;
         
-        while(fast.next!=null && fast.next.next!=null)
+        while(fast.next!=null  && fast.next.next!=null)
         {
             slow=slow.next;
             fast=fast.next.next;
         }
         
         return slow;
-        
     }
-    
     
     
     public boolean isPalindrome(ListNode head) {
         
-        if(head==null || head.next==null)
-        {
-            return true;
-        }
+        if(head==null || head.next==null) return true;
         
-        ListNode middlenode=middle(head);
-        ListNode nhead=middlenode.next;
-        middlenode.next=null;
-        
+        ListNode midnode=middle(head);
+        ListNode nhead=midnode.next;
         nhead=reverse(nhead);
+        
+        midnode.next=null;
         
         ListNode c1=head;
         ListNode c2=nhead;
-        
         boolean res=true;
         
         while(c1!=null && c2!=null)
@@ -77,11 +67,12 @@ class Solution {
             {
                 res=false;
                 break;
-                
             }
+            
             c1=c1.next;
             c2=c2.next;
         }
+        
         
         return res;
         
