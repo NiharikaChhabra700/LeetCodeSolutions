@@ -9,7 +9,8 @@
  * }
  */
 class Solution {
-    public ListNode reverse(ListNode head)
+    
+     public ListNode reverse(ListNode head)
     {
         if(head==null || head.next==null)
         {
@@ -51,33 +52,30 @@ class Solution {
     }
     
     public void reorderList(ListNode head) {
-         if(head==null || head.next==null)
-        {
-            return ;
-        }
         
-        ListNode middlenode=middle(head);
-        ListNode nhead=middlenode.next;
-        middlenode.next=null;
+        if(head==null || head.next==null) return;
+        
+        ListNode midnode=middle(head);
+        ListNode nhead=midnode.next;
+        
+        midnode.next=null;
         
         nhead=reverse(nhead);
         
         ListNode c1=head;
         ListNode c2=nhead;
         
-       
-        
         while(c1!=null && c2!=null)
         {
-            ListNode f1=c1.next;
-            ListNode f2=c2.next;
-        
-            c1.next=c2;
-            c2.next=f1;
+            ListNode temp1=c1.next;
+            ListNode temp2=c2.next;
             
-            c1=f1;
-            c2=f2;
+            c1.next=c2;
+            c2.next=temp1;
+            
+            c1=temp1;
+            c2=temp2;
         }
-
+        
     }
 }
