@@ -9,10 +9,9 @@
  * }
  */
 class Solution {
-    public ListNode middle(ListNode head) {
-        
-        
-        
+    
+     public ListNode middle(ListNode head)
+    {
         if(head==null || head.next==null)
         {
             return head;
@@ -30,13 +29,24 @@ class Solution {
         return slow;
         
     }
-    public ListNode mergeTwoLists(ListNode list1, ListNode list2) {
+    
+    public ListNode mergetwolists(ListNode l1,ListNode l2)
+    {
+        if(l1==null)
+        {
+            return l2;
+        }
+        if(l2==null)
+        {
+            return l1;
+        }
         
         ListNode dummy=new ListNode(-1);
         ListNode prev=dummy;
         
-        ListNode c1=list1;
-        ListNode c2=list2;
+        
+        ListNode c1=l1;
+        ListNode c2=l2;
         
         while(c1!=null && c2!=null)
         {
@@ -50,30 +60,26 @@ class Solution {
                 prev.next=c2;
                 c2=c2.next;
             }
-            
             prev=prev.next;
         }
         
-        prev.next= (c1 != null) ? c1 : c2;
-        
+        prev.next= (c1!=null) ? c1 : c2;
         
         return dummy.next;
-        
-        
     }
+    
+    
     
     public ListNode sortList(ListNode head) {
         
-        if(head==null || head.next==null)
-        {
-            return head;
-        }
+        if(head==null || head.next==null) return head;
         
-        ListNode middleNode=middle(head);
-        ListNode nhead=middleNode.next;
-        middleNode.next=null;
+        ListNode midnode=middle(head);
+        ListNode nhead=midnode.next;
         
-        return mergeTwoLists(sortList(head),sortList(nhead));
+        midnode.next=null;
+        
+        return mergetwolists(sortList(head),sortList(nhead));
         
     }
 }
