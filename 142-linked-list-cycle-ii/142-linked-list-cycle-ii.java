@@ -25,19 +25,17 @@ public class Solution {
             slow=slow.next;
             fast=fast.next.next;
             
-            if(fast==slow)
+            if(slow==fast)
             {
                 break;
             }
         }
         
-        if(fast!=slow)
-        {
-            return null;
-        }
+        if(slow!=fast) return null;
         
         slow=head;
-        while(fast!=slow)
+        
+        while(slow!=fast)
         {
             slow=slow.next;
             fast=fast.next;
@@ -45,7 +43,6 @@ public class Solution {
         
         
         return slow;
-        
         
     }
 }
