@@ -20,8 +20,8 @@ class Solution {
     {
         if(root==null) return 0;
         
-        int lc=distribute(root.left);
-        int rc=distribute(root.right);
+        int lc=distribute(root.left); // how much do you need or got extra
+        int rc=distribute(root.right);  // how much do you need or got extra
         
         steps += Math.abs(lc) + Math.abs(rc);
         
