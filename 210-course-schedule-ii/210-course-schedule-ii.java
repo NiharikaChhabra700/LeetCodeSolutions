@@ -1,22 +1,26 @@
 class Solution {
-     public ArrayList<Integer> kahns(ArrayList<Integer>[] graph,int n)
+    
+    public ArrayList<Integer> kahns(ArrayList<Integer>[] graph,int n)
     {
         int[] indegree=new int[n];
         
         for(ArrayList<Integer> arr: graph)
         {
-            for(int v: arr)
+            for(int v : arr)
             {
                 indegree[v]++;
             }
         }
         
-        LinkedList<Integer> que=new LinkedList<>();
         ArrayList<Integer> ans=new ArrayList<>();
+        LinkedList<Integer> que=new LinkedList<>();
         
         for(int i=0;i<n;i++)
         {
-            if(indegree[i]==0) que.addLast(i);
+            if(indegree[i]==0)
+            {
+                que.addLast(i);
+            }
         }
         
         while(que.size()!=0)
@@ -35,7 +39,6 @@ class Solution {
                     }
                 }
             }
-            
         }
         
         return ans;
@@ -44,8 +47,9 @@ class Solution {
     }
     
     
+    
     public int[] findOrder(int n, int[][] prerequisites) {
-          
+        
         ArrayList<Integer>[] graph=new ArrayList[n];
         
         for(int i=0;i<n;i++)
@@ -53,17 +57,19 @@ class Solution {
             graph[i]=new ArrayList<>();
         }
         
-        for(int[] arr:prerequisites)
+        for(int[] arr: prerequisites)
         {
             graph[arr[1]].add(arr[0]);
         }
         
         ArrayList<Integer> ans=kahns(graph,n);
+        
         if(ans.size()!=n)
         {
             ans.clear();
             return new int[0];
         }
+        
         
         int[] sol=new int[n];
         
@@ -73,7 +79,6 @@ class Solution {
         }
         
         return sol;
-        
         
     }
 }
