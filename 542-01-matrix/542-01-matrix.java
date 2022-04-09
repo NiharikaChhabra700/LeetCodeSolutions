@@ -1,13 +1,10 @@
 class Solution {
-    
- 
-    
     public int[][] updateMatrix(int[][] mat) {
-       LinkedList<Integer> que=new LinkedList<>();
-       int n=mat.length;
-       int m=mat[0].length;
         
-        boolean[][] vis=new boolean[n][m];
+        LinkedList<Integer> que=new LinkedList<>();
+        
+        int n=mat.length;
+        int m=mat[0].length;
         
         for(int i=0;i<n;i++)
         {
@@ -16,38 +13,36 @@ class Solution {
                 if(mat[i][j]==0)
                 {
                     que.addLast(i*m+j);
-                    vis[i][j]=true;
+                }
+                else 
+                {
+                    mat[i][j]=-1;
                 }
             }
         }
         
-        int[][] dir={{1,0},{-1,0},{0,1},{0,-1}};
-        
+        int[][] dir={{0,1},{0,-1},{-1,0},{1,0}};
         
         while(que.size()!=0)
         {
-            int size=que.size();
-            while(size-->0)
+            int idx=que.removeFirst();
+            
+            int r=idx/m;
+            int c=idx%m;
+            
+            for(int d=0;d<dir.length;d++)
             {
-                int idx=que.removeFirst();
+                int x=r+dir[d][0];
+                int y=c+dir[d][1];
                 
-                int r=idx/m;
-                int c=idx%m;
-                
-                for(int[] d: dir)
+                if(x>=0 && y>=0 && x<n && y<m && mat[x][y]<0)
                 {
-                    int x=r+d[0];
-                    int y=c+ d[1];
-                    
-                    if(x>=0 && y>=0 && x<n && y<m && !vis[x][y])
-                    {
-                        mat[x][y]=mat[r][c]+1;
-                        vis[x][y]=true;
-                        que.addLast(x*m+y);
-                    }
+                    que.addLast(x*m+y);
+                    mat[x][y]=mat[r][c]+1;
                 }
             }
         }
+        
         
         return mat;
         
