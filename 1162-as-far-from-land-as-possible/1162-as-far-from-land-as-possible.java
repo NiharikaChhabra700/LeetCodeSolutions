@@ -1,65 +1,54 @@
 class Solution {
-    
-     public class Pair
-    {
-        int x;
-        int y;
-        Pair(int x,int y)
-        {
-            this.x=x;
-            this.y=y;
-        }
-    }
-    
-    
     public int maxDistance(int[][] grid) {
-        LinkedList<Pair> que=new LinkedList<>();
         
-        for(int i=0;i<grid.length;i++)
+        LinkedList<Integer> que=new LinkedList<>();
+        
+        int n=grid.length;
+        int m=grid[0].length;
+        
+        for(int i=0;i<n;i++)
         {
-            for(int j=0;j<grid[0].length;j++)
+            for(int j=0;j<m;j++)
             {
                 if(grid[i][j]==1)
                 {
-                    que.addLast(new Pair(i,j));
+                    que.addLast(i*m+j);
                 }
             }
         }
         
-        if(que.size()==0 || que.size() == grid.length*grid[0].length)
+        if(que.size()==0 || que.size()==n*m)
         {
             return -1;
-            
         }
-         int[][] dir={{1,0},{-1,0},{0,1},{0,-1}};
-        
         int level=-1;
+        int[][] dir={{0,1},{0,-1},{-1,0},{1,0}};
         
         while(que.size()!=0)
         {
-            level++;
             int size=que.size();
-            
             while(size-->0)
             {
-                Pair rem=que.removeFirst();
+                int idx=que.removeFirst();
+                
+                int r=idx/m;
+                int c=idx%m;
                 
                 for(int d=0;d<dir.length;d++)
                 {
-                    int x=rem.x+dir[d][0];
-                    int y=rem.y+dir[d][1];
+                    int x=r+dir[d][0];
+                    int y=c+dir[d][1];
                     
-                    if(x<0 || y<0 || x>=grid.length || y>=grid[0].length || grid[x][y]==1)
+                    if(x>=0 && y>=0 && x<n && y<m && grid[x][y]!=1)
                     {
-                        continue;
+                        que.addLast(x*m+y);
+                        grid[x][y]=1;
                     }
-                    
-                    grid[x][y]=1;
-                    que.addLast(new Pair(x,y));
                 }
             }
+            
+            level++;
         }
-        
         
         return level;
     }
