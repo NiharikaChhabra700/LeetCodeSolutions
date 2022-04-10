@@ -1,6 +1,6 @@
 class Solution {
     
-    public class Pair
+     public class Pair
     {
         int x;
         int y;
