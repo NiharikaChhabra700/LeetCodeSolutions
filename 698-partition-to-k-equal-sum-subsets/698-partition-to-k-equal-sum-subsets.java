@@ -7,6 +7,8 @@ class Solution {
             return true;
         }
         
+        if(sumsf> tar) return false;
+        
         if(sumsf==tar)
         {
             return canpartition(arr,k-1,0,0,tar,vis);
@@ -43,7 +45,7 @@ class Solution {
         
         int n=nums.length;
         
-        boolean[] vis=new boolean[n+1];
+        boolean[] vis=new boolean[n];
         return canpartition(nums,k,0,0,sum/k,vis);
         
         
