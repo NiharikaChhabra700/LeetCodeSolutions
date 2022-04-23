@@ -5,26 +5,20 @@ class Solution {
         
         int i=0;
         int j=n-1;
+        int max=-(int)1e9;
         
-        int maxArea=0;
-        
-        
-        while(i<=j)
+        while(i<j)
         {
             int min=Math.min(height[i],height[j]);
-            maxArea=Math.max(maxArea,min* (j-i));
             
-            if(height[i]<height[j])
-            {
-                i++;
-            }
-            else
-            {
-                j--;
-            }
+            max=Math.max(max,(min*(j-i)));
+            
+            if(height[i]<height[j]) i++;
+            else j--;
+            
         }
         
-        return maxArea;
+        return max;
         
     }
 }
