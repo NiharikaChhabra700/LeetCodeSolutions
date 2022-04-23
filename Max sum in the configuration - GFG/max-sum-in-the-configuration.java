@@ -26,24 +26,28 @@ class Maxsum_Among_All_Rotations_Array
 
 class GfG
 {
-    int max_sum(int nums[], int n)
+    int max_sum(int arr[], int n)
     {
 	  int sum=0;
 	  int sumwithindex=0;
 	  
+	  
 	  for(int i=0;i<n;i++)
 	  {
-	      sum+=nums[i];
-	      sumwithindex+=i*nums[i];
+	      sum+=arr[i];
+	      sumwithindex+= (i*arr[i]);
 	  }
 	  
 	  int max=sumwithindex;
 	  
+	  
 	  for(int i=1;i<n;i++)
 	  {
-	      sumwithindex= sumwithindex -sum + nums[i-1]*n;
+	      sumwithindex = sumwithindex - sum + (n*arr[i-1]);
+	      
 	      max=Math.max(max,sumwithindex);
 	  }
+	  
 	  
 	  return max;
     }	
