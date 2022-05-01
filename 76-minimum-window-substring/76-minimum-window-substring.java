@@ -3,14 +3,14 @@ class Solution {
         
         int ns=s.length();
         int nt=t.length();
-        int count=0;
-        
-        int[] freq=new int[128];
         
         if(ns<nt)
         {
             return "";
         }
+        
+        int[] freq=new int[128];
+        int count=0;
         
         for(int i=0;i<nt;i++)
         {
@@ -22,7 +22,7 @@ class Solution {
         
         while(ei<ns)
         {
-            if(freq[s.charAt(ei++)]-->0)
+            if(freq[s.charAt(ei++)]-- > 0)
             {
                 count--;
             }
@@ -42,6 +42,10 @@ class Solution {
             }
         }
         
-        return len == (int) 1e9 ? "" : s.substring(gsi, gsi + len);
+        
+        return len==(int)1e9 ? "" : s.substring(gsi,gsi+len);
+        
+        
+        
     }
 }
