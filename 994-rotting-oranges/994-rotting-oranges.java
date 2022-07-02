@@ -1,20 +1,18 @@
 class Solution {
     public int orangesRotting(int[][] grid) {
         
-        if(grid.length==0 || grid[0].length==0)
-        {
-            return -1;
-        }
-        
-        LinkedList<Integer> que=new LinkedList<>();
         int n=grid.length;
         int m=grid[0].length;
-        int freshoranges=0;
         
+        LinkedList<Integer> que=new LinkedList<>();
         
-        for(int i=0;i<grid.length;i++)
+        int[][] dir = {{1,0},{-1,0},{0,1},{0,-1}};
+        
+        int freshOranges=0;
+        
+        for(int i=0;i<n;i++)
         {
-            for(int j=0;j<grid[0].length;j++)
+            for(int j=0;j<m;j++)
             {
                 if(grid[i][j]==2)
                 {
@@ -22,51 +20,47 @@ class Solution {
                 }
                 else if(grid[i][j]==1)
                 {
-                    freshoranges++;
+                    freshOranges++;
                 }
             }
         }
-         int[][] dir={{1,0},{-1,0},{0,1},{0,-1}};
         
-        if(freshoranges==0) return 0;
-        
+        if(freshOranges == 0) return 0;
         int time=0;
         
         while(que.size()!=0)
         {
-            int size=que.size();
-            
-            while(size-->0)
+            int size= que.size();
+            while(size-- > 0)
             {
-                int idx=que.removeFirst();
+                int idx = que.removeFirst();
                 
-                int r=idx/m;
-                int c=idx%m;
+                int r = idx/m;
+                int c = idx%m;
                 
                 for(int d=0;d<dir.length;d++)
                 {
-                    int x=r+dir[d][0];
-                    int y=c+dir[d][1];
+                    int x = r + dir[d][0];
+                    int y = c + dir[d][1];
                     
-                    if(x>=0 && y>=0 && x<n && y<m && grid[x][y]==1)
+                    if(x>=0 && y>=0 && x<n && y<m && grid[x][y] ==1 )
                     {
-                        grid[x][y]=2;
-                        freshoranges--;
-                        
+                        grid[x][y] =2;
                         que.addLast(x*m+y);
+                        freshOranges--;
                         
-                        if(freshoranges==0)
+                        if(freshOranges == 0)
                         {
                             return time+1;
                         }
                     }
                 }
             }
-            
             time++;
         }
         
         return -1;
+    
         
     }
 }
