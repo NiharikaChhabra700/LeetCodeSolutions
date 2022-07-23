@@ -1,18 +1,17 @@
 class Solution {
     
-    public boolean Kahns(ArrayList<Integer>[] graph , int n)
-    {
-        int[] indegree = new int[n];
+    public boolean KahnsAlgo(ArrayList<Integer>[] graph, int n){
         
-        for(int i=0;i<n;i++)
+        int[] indegree = new int[n];
+        LinkedList<Integer> que = new LinkedList<>();
+        
+        for(int i = 0; i<n;i++ )
         {
-            for(int e : graph[i])
+            for(int edge : graph[i])
             {
-                indegree[e]++;
+                indegree[edge]++;
             }
         }
-        
-        LinkedList<Integer> que = new LinkedList<>();
         
         for(int i=0;i<n;i++)
         {
@@ -24,26 +23,32 @@ class Solution {
         
         ArrayList<Integer> ans = new ArrayList<>();
         
+        boolean[] vis = new boolean[n];
+        
         while(que.size()!=0)
         {
-            int size=que.size();
+            int size = que.size();
             while(size-- > 0)
             {
-                int rvtx = que.removeFirst();
-                ans.add(rvtx);
+                int rmvtx = que.removeFirst();
                 
-                for(int e : graph[rvtx])
+                ans.add(rmvtx);
+                
+                
+                for(int v : graph[rmvtx])
                 {
-                    if(--indegree[e] == 0)
+                    if(--indegree[v] == 0)
                     {
-                        que.addLast(e);
+                        que.addLast(v);
                     }
                 }
             }
         }
         
         return ans.size() == n;
+        
     }
+    
     
     
     
@@ -51,18 +56,18 @@ class Solution {
         
         ArrayList<Integer>[] graph = new ArrayList[n];
         
-         for(int i=0;i<n;i++)
+        for(int i=0;i<n;i++)
         {
-            graph[i]=new ArrayList<>();
-        }
-        for(int[] arr : prerequisites)
-        {
-            graph[arr[0]].add(arr[1]);
+            graph[i] = new ArrayList<>();
         }
         
-        return Kahns(graph,n);
+        for(int[] p : prerequisites)
+        {
+            graph[p[0]].add(p[1]);
+        }
         
+        return KahnsAlgo(graph, n);
         
-        
+                                                         
     }
 }
