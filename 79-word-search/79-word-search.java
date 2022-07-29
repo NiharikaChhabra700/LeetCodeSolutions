@@ -1,55 +1,56 @@
 class Solution {
     
-    public boolean dfs(char[][] board,int i,int j,int count,String word,int[][] dir)
+    int[][] dir = {{1,0},{-1,0},{0,1},{0,-1}};
+    
+    public boolean dfs(char[][] board,boolean[][] vis,String word,int i, int j, int idx)
     {
-        if(count==word.length())
+        int n = board.length;
+        int m = board[0].length;
+        boolean res = false;
+
+        if(idx == word.length())
         {
             return true;
         }
+        vis[i][j] = true;
         
-        boolean res=false;
-        
-        for(int d=0;d<dir.length;d++)
+        for(int d=0;d<dir.length; d++)
         {
-            int x=i+dir[d][0];
-            int y=j+dir[d][1];
+            int x = i + dir[d][0];
+            int y = j + dir[d][1];
             
-            if(x>=0 && y>=0 && x<board.length && y<board[0].length && board[i][j]==word.charAt(count))
+            if(x>=0 && y>=0 && x<n && y<m && board[x][y] == word.charAt(idx) && !vis[x][y])
             {
-                char ch=board[i][j];
-                
-                board[i][j]=' ';
-                res=res|| dfs(board,x,y,count+1,word,dir);
-                
-                board[i][j]=ch;
-                
+               res = res || dfs(board,vis,word,x,y,idx+1);
             }
         }
         
-        return res;
+        vis[i][j] = false;
         
+        return res;
     }
     
     
+    
     public boolean exist(char[][] board, String word) {
-      if(board.length==1 && board[0].length==1)
-       {
-           if(word.length()==1 && board[0][0]==word.charAt(0)) return true;
-       }
-        int[][] dir={{1,0},{-1,0},{0,1},{0,-1}};
         
-        for(int i=0;i<board.length;i++)
+        int n = board.length;
+        int m = board[0].length;
+        boolean res = false;
+        
+        boolean[][] vis = new boolean[n][m];
+        
+        for(int i=0;i<n;i++)
         {
-            for(int j=0;j<board[0].length;j++)
+            for(int j=0;j<m;j++)
             {
-                if(board[i][j]==word.charAt(0) && dfs(board,i,j,0,word,dir))
+                if(board[i][j] == word.charAt(0))
                 {
-                    return true;
+                    res = res || dfs(board,vis,word,i,j,1);
                 }
             }
         }
         
-        return false;
-        
+        return res;
     }
 }
